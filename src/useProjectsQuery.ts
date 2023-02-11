@@ -1,8 +1,18 @@
 import { useQuery } from 'react-query';
 import LinkHeader from 'http-link-header';
-import headers from './headers';
+import { useLocalStorage } from './useLocalStorage';
 
-const projects = () =>
+const projects = (token: string) => {
+  const [projects, setProjects] = useLocalStorage<string>(
+    'gitlabProjects',
+    '{}'
+  );
+  // cache lifetime
+  const [timestamp, setTimestamp] = useLocalStorage<string>(
+    'gitlabTimestamp',
+    '0'
+  );
+
   useQuery(
     'projects',
     async () => {
@@ -13,7 +23,9 @@ const projects = () =>
       }projects?pagination=keyset&per_page=100&order_by=id`; //todo config
       while (hasMorePages) {
         const response = await fetch(projectsFetchUrl, {
-          headers,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         if (response.headers.has('Link')) {
@@ -35,7 +47,18 @@ const projects = () =>
     },
     {
       select: (data) => data.flat(),
+      onSuccess: (data) => {
+        setProjects(JSON.stringify(data));
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        setTimestamp(tomorrow.getTime().toString());
+      },
+      enabled:
+        Object.keys(JSON.parse(projects)).length == 0 ||
+        parseInt(timestamp) < new Date().getTime(),
     }
   );
+  return JSON.parse(projects) as { [key: string]: any };
+};
 
 export default projects;

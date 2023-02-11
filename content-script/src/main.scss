@@ -10,8 +10,9 @@
 }
 
 :root {
-  --font-sans: 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --font-sans: 'GitLabSans', --apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
   --app-bg: var(--gray1);
   --cmdk-shadow: 0 16px 70px rgb(0 0 0 / 20%);
 
@@ -48,26 +49,12 @@
   --grayA11: hsla(0, 0%, 100%, 0.592);
   --grayA12: hsla(0, 0%, 100%, 0.923);
 
-  --blue1: hsl(212, 35%, 9.2%);
-  --blue2: hsl(216, 50%, 11.8%);
-  --blue3: hsl(214, 59.4%, 15.3%);
-  --blue4: hsl(214, 65.8%, 17.9%);
-  --blue5: hsl(213, 71.2%, 20.2%);
-  --blue6: hsl(212, 77.4%, 23.1%);
-  --blue7: hsl(211, 85.1%, 27.4%);
-  --blue8: hsl(211, 89.7%, 34.1%);
-  --blue9: hsl(206, 100%, 50%);
-  --blue10: hsl(209, 100%, 60.6%);
-  --blue11: hsl(210, 100%, 66.1%);
-  --blue12: hsl(206, 98%, 95.8%);
-
   --page-top: 5rem;
   --layer-portal: 1337;
 }
 
 [cmdk-root] {
   min-width: 640px;
-  // width: 100%;
   background: var(--gray2);
   border-radius: 12px;
   padding: 8px 0;
@@ -75,41 +62,9 @@
   box-shadow: var(--cmdk-shadow);
   border: 1px solid var(--gray6);
   position: relative;
-
-  &:after {
-    content: '';
-    background: linear-gradient(
-      to right,
-      var(--gray6) 20%,
-      var(--gray6) 40%,
-      var(--gray10) 50%,
-      var(--gray10) 55%,
-      var(--gray6) 70%,
-      var(--gray6) 100%
-    );
-    z-index: -1;
-    position: absolute;
-    border-radius: 12px;
-    top: -1px;
-    left: -1px;
-    width: calc(100% + 2px);
-    height: calc(100% + 2px);
-    animation: shine 3s ease forwards 0.1s;
-    background-size: 200% auto;
-  }
-
-  &:before {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    border-radius: 12px;
-    top: -1px;
-    left: -1px;
-    width: calc(100% + 2px);
-    height: calc(100% + 2px);
-    box-shadow: 0 0 0 1px transparent;
-    animation: border 1s linear forwards 0.5s;
-  }
+  color-scheme: dark;
+  box-shadow: #00000087 0px 4px 8px 1px;
+  animation: slideIn 0.15s ease forwards;
 
   kbd {
     font-family: var(--font-sans);
@@ -141,25 +96,6 @@
 
   &::placeholder {
     color: var(--gray9);
-  }
-}
-
-[cmdk-gitlab-top-shine] {
-  & {
-    background: linear-gradient(
-      90deg,
-      rgba(56, 189, 248, 0),
-      var(--gray5) 20%,
-      var(--gray9) 67.19%,
-      rgba(236, 72, 153, 0)
-    );
-    height: 1px;
-    position: absolute;
-    top: -1px;
-    width: 100%;
-    z-index: -1;
-    opacity: 0;
-    animation: showTopShine 0.1s ease forwards 0.2s;
   }
 }
 
@@ -240,6 +176,21 @@
   svg {
     width: 18px;
     height: 18px;
+  }
+
+  .itemBadge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .itemBadgeTitle {
+      padding: 4px 12px;
+      background: var(--grayA3);
+      border-radius: 4px;
+      background: rgb(255 255 255 / 3%);
+      color: var(--gray11);
+    }
   }
 }
 
@@ -389,16 +340,6 @@
   top: var(--page-top);
   transform: translateX(-50%);
 
-  [cmdk] {
-    width: 640px;
-    transform-origin: center center;
-    animation: dialogIn var(--transition-fast) forwards;
-  }
-
-  &[data-state='closed'] [cmdk] {
-    animation: dialogOut var(--transition-fast) forwards;
-  }
-
   [cmdk-empty] {
     font-size: 14px;
     display: flex;
@@ -427,25 +368,6 @@
   }
 }
 
-@keyframes shine {
-  to {
-    background-position: 200% center;
-    opacity: 0;
-  }
-}
-
-@keyframes border {
-  to {
-    box-shadow: 0 0 0 1px var(--gray6);
-  }
-}
-
-@keyframes showTopShine {
-  to {
-    opacity: 1;
-  }
-}
-
 .gitlab-submenu {
   [cmdk-root] {
     display: flex;
@@ -454,6 +376,8 @@
     border: 1px solid var(--gray6);
     background: var(--gray2);
     border-radius: 8px;
+    background: rgb(0 0 0 / 90%);
+    backdrop-filter: blur(5px);
   }
 
   [cmdk-list] {
