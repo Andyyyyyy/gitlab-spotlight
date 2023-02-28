@@ -7,7 +7,9 @@ export const WithBadge = (props: Props) => {
   return (
     <div className="itemBadge">
       <span>{props.children}</span>
-      <span className="itemBadgeTitle">{props.badgeTitle}</span>
+      {props.badgeTitle && (
+        <span className="itemBadgeTitle">{props.badgeTitle}</span>
+      )}
     </div>
   );
 };

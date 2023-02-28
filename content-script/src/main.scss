@@ -53,18 +53,44 @@
   --layer-portal: 1337;
 }
 
+[class*='ui-light'] {
+  [cmdk-root] {
+    background: rgb(236 236 239 / 90%);
+    color-scheme: light;
+    border-color: var(--grayA8);
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px 2px;
+  }
+  [cmdk-input] {
+    color: var(--gray0);
+  }
+  [cmdk-item] {
+    color: var(--gray0);
+  }
+  [cmdk-group-heading] {
+    color: var(--gray3);
+  }
+  [cmdk-item][aria-selected='true'] {
+    color: var(--gray0);
+    background: hsl(0deg 0% 80%);
+  }
+  [cmdk-item] .itemBadge .itemBadgeTitle {
+    color: var(--gray4);
+    background:rgb(0 0 0 / 12%);
+}
+}
+
 [cmdk-root] {
   min-width: 640px;
-  background: var(--gray2);
   border-radius: 12px;
   padding: 8px 0;
   font-family: var(--font-sans);
-  box-shadow: var(--cmdk-shadow);
   border: 1px solid var(--gray6);
   position: relative;
   color-scheme: dark;
   box-shadow: #00000087 0px 4px 8px 1px;
   animation: slideIn 0.15s ease forwards;
+  background: hsl(250deg 9% 10% / 91%);
+  backdrop-filter: blur(5px);
 
   kbd {
     font-family: var(--font-sans);
@@ -82,6 +108,12 @@
       margin-left: 8px;
     }
   }
+}
+
+[cmdk-loading] {
+  padding: 8px;
+  font-size: larger;
+  color: var(--gray11);
 }
 
 [cmdk-input] {
@@ -151,7 +183,7 @@
   transition-property: none;
 
   &[aria-selected='true'] {
-    background: var(--gray4);
+    background: hsl(250deg 9% 18%);
     color: var(--gray12);
   }
 
@@ -202,13 +234,13 @@
 
 [cmdk-list] {
   padding: 0 8px;
-  height: 393px;
+  height: var(--cmdk-list-height);
   overflow: auto;
   overscroll-behavior: contain;
   scroll-padding-block-end: 40px;
-  transition: 100ms ease;
+  transition: 250ms ease;
   transition-property: height;
-  padding-bottom: 40px;
+  max-height: 400px;
 }
 
 [cmdk-gitlab-open-trigger],
